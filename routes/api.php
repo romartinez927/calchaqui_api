@@ -8,6 +8,8 @@ use App\Http\Controllers\ClinicaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\PuntoDeControlController;
 use App\Http\Controllers\TipoMuestraController;
+use App\Http\Controllers\SubtipoMuestraController;
+use App\Http\Controllers\ObraSocialController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -68,3 +70,12 @@ Route::get("/tipo-muestras/{tipo-muestra}", [TipoMuestraController::class, "show
 Route::post('/tipo-muestras', [TipoMuestraController::class, "store"]);
 Route::patch("/tipo-muestras/{tipo-muestra}", [TipoMuestraController::class, "update"]);
 Route::delete("/tipo-muestras/{tipo-muestra}", [TipoMuestraController::class, "destroy"]);
+
+Route::get("/subtipo-muestras", [SubtipoMuestraController::class, "index"]);
+Route::get("/subtipo-muestras/{subtipo}", [SubtipoMuestraController::class, "show"]);
+Route::post('/subtipo-muestras', [SubtipoMuestraController::class, "store"]);
+Route::patch("/subtipo-muestras/{subtipo}", [SubtipoMuestraController::class, "update"]);
+Route::delete("/subtipo-muestras/{subtipo}", [SubtipoMuestraController::class, "destroy"]);
+
+Route::get("/obra-social", [ObraSocialController::class, "index"]);
+Route::get("/obra-social/{obraSocial}", [ObraSocialController::class, "show"]);

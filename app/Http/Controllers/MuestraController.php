@@ -39,25 +39,45 @@ class MuestraController extends Controller
      * @param  \App\Http\Requests\StoreMuestraRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMuestraRequest $request)
+    public function store(Request $request)
     {
-        $paciente = Paciente::create($request->validated());
-        
-        // Muestra::create($request->validate());
+     // Validar los datos del paciente
+     $pacienteValidado = $request->validate([
+        "nombre" => "required",
+        "apellido" => "required",
+        "dni" => "required|numeric",
+        "obra_social" => "required",
+    ], [
+        "required" => "Este campo es requerido", 
+        "numeric" => "Este campo requiere números"
+    ]);
 
-        Muestra::create([
-            "paciente_id" => $paciente->id,
-            "subtipo_muestra" => $request->subtipo_muestra,
-            "punto_generacion" => $request->punto_generacion,
-            "material" => $request->material,
-            "localizacion" => $request->localizacion,
-            "diagnostico" => $request->diagnostico,
-            "observaciones" => $request->observaciones,
-            "frascos" => $request->frascos,
-            "tipo_muestra_id" => $request->tipo_muestra_id,
-        ]);
-        
-        return "muestra creada";
+    // Crear el paciente
+    $paciente = new Paciente();
+    $paciente->nombre = $pacienteValidado["nombre"];
+    $paciente->apellido = $pacienteValidado["apellido"];
+    $paciente->dni = $pacienteValidado["dni"];
+    $paciente->obra_social = $pacienteValidado["obra_social"];
+    $paciente->save();
+
+    // Validar los datos de la muestra
+    $muestraValidada = $request->validate([
+        "subtipo_muestra_id" => "required",
+        "punto_generacion" => "required",
+        "material" => "required",
+        "localizacion" => "required",
+        "diagnostico" => "required",
+        "observaciones" => "required",
+        "frascos" => "required|numeric",
+        "tipo_muestra_id" => "required|numeric",
+    ], [
+        "required" => "Este campo es requerido", 
+        "numeric" => "Este campo requiere números"
+    ]);
+
+    // Crear la muestra asociada al paciente
+    $muestraValidada['paciente_id'] = $paciente->id;
+    Muestra::create($muestraValidada);
 
     }
 

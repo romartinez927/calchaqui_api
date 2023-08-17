@@ -20,7 +20,6 @@ class TipoMuestraFactory extends Factory
         // $subtipo_muestra = SubtipoMuestra::all()->random();
         return [
             // "nombre" => fake()->randomElement(["Anatomía Patológica", "Laboratorio", "Pericial"]),
-            // "subtipo_muestra_id" => $subtipo_muestra->id,
             // "disponible" => fake()->boolean(),
         ];
     }

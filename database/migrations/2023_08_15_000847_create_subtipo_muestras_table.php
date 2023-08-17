@@ -13,12 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('subtipo_muestras', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
             $table->boolean("disponible");
+            $table->unsignedBigInteger('tipo_muestra_id')->nullable();
+            $table->foreign('tipo_muestra_id')
+            ->references('id')
+            ->on('tipo_muestras')
+            ->onDelete('set null'); 
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

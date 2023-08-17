@@ -10,7 +10,7 @@ use App\Models\TipoMuestra;
 class Muestra extends Model
 {
     use HasFactory;
-    protected $fillable = ["paciente_id", "tipo_muestra_id", "subtipo_muestra", "punto_generacion", "material", "localizacion", "diagnostico", "observaciones", "frascos"];
+    protected $fillable = ["paciente_id", "tipo_muestra_id", "subtipo_muestra_id", "punto_generacion", "material", "localizacion", "diagnostico", "observaciones", "frascos"];
 
     public function paciente()
     {
@@ -19,6 +19,11 @@ class Muestra extends Model
 
     public function tipoMuestra()
     {
-        return $this->hasOne(TipoMuestra::class);
+        return $this->belongsTo(TipoMuestra::class, 'tipo_muestra_id');
+    }
+
+    public function subtipoMuestra()
+    {
+        return $this->belongsTo(SubtipoMuestra::class, 'subtipo_muestra_id');
     }
 }

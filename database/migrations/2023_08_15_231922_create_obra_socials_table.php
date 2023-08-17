@@ -14,10 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('tipo_muestras', function (Blueprint $table) {
+        Schema::create('obra_socials', function (Blueprint $table) {
             $table->id();
-            $table->string("nombre");
-            $table->boolean("disponible"); 
+            $table->string("nombre")->unique();
+            $table->string("sigla")->nullable();
+            $table->string("provincia")->nullable();
+            $table->string("telefono")->nullable();
+            $table->string("email")->nullable();
+            $table->boolean("habilitado")->default(true);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_muestras');
+        Schema::dropIfExists('obra_socials');
     }
 };

@@ -28,9 +28,14 @@ return new class extends Migration
             $table->foreign('tipo_muestra_id')
             ->references('id')
             ->on('tipo_muestras')
+            ->onDelete('set null');
+            
+            $table->unsignedBigInteger('subtipo_muestra_id')->nullable();
+            $table->foreign('subtipo_muestra_id')
+            ->references('id')
+            ->on('subtipo_muestras')
             ->onDelete('set null'); 
 
-            $table->string('subtipo_muestra');
             $table->string('punto_generacion');
             $table->string('material');
             $table->string('localizacion');

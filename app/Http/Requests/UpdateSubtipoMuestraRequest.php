@@ -13,7 +13,7 @@ class UpdateSubtipoMuestraRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateSubtipoMuestraRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "nombre" => ["string", "required"],
+            "disponible" => ["boolean"]
         ];
     }
 }

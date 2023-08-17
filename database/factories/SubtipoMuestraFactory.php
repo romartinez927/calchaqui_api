@@ -17,8 +17,8 @@ class SubtipoMuestraFactory extends Factory
     public function definition()
     {
         return [
-            "nombre" => fake()->name(),
-            "disponible" => fake()->boolean(),
+            // "nombre" => fake()->name(),
+            // "disponible" => fake()->boolean(),
         ];
     }
 }

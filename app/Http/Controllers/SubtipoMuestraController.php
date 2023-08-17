@@ -15,7 +15,8 @@ class SubtipoMuestraController extends Controller
      */
     public function index()
     {
-        //
+        $subtipos_muestras = SubtipoMuestra::get();
+        return $subtipos_muestras;
     }
 
     /**
@@ -36,7 +37,8 @@ class SubtipoMuestraController extends Controller
      */
     public function store(StoreSubtipoMuestraRequest $request)
     {
-        //
+        SubtipoMuestra::create($request->validated());
+        return $request;
     }
 
     /**

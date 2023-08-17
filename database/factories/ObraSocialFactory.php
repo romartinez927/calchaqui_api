@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Servicio>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ObraSocial>
  */
-class ServicioFactory extends Factory
+class ObraSocialFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ServicioFactory extends Factory
     public function definition()
     {
         return [
-            // "nombre" => fake()->name(),
-            // "disponible" => fake()->boolean(),
+            //
         ];
     }
 }

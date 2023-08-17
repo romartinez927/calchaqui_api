@@ -25,12 +25,11 @@ class StoreMuestraRequest extends FormRequest
     public function rules()
     {
         return [
-            "nombre" => ["string"],
-            "apellido" => ["string"],
-            "obra_social" => ["string"],
-            "dni" => ["integer","numeric"],
-  
-            "subtipo_muestra" => ["string","required"],
+            "nombre" => ["string","required"],
+            "apellido" => ["string","required"],
+            "obra_social" => ["string","required"],
+            "dni" => ["integer","numeric","required"],
+            "subtipo_muestra_id" => ["string","required"],
             "punto_generacion" => ["string","required"],
             "material" => ["string","required"],
             "localizacion" => ["string","required"],
