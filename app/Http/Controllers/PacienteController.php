@@ -45,9 +45,9 @@ class PacienteController extends Controller
      */
     public function store(StorePacienteRequest $request)
     {
-        Paciente::create($request->validated());
+        $paciente = Paciente::create($request->validated());
         
-        return "paciente creado en la base de datos";
+        return $paciente;
     }
 
     /**

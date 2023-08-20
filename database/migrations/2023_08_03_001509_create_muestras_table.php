@@ -41,6 +41,8 @@ return new class extends Migration
             $table->string('localizacion');
             $table->string('diagnostico');
             $table->string('observaciones');
+            $table->string('medico');
+            $table->string('preparador');
             $table->integer('frascos');
             
             $table->timestamps();

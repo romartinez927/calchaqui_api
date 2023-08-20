@@ -28,6 +28,8 @@ class MuestraFactory extends Factory
             "subtipo_muestra_id" => $tipo_muestra->subtipoMuestras->first()->id,
             "punto_generacion" => fake()->name(),
             "material" => fake()->name(),
+            "medico" => fake()->name(),
+            "preparador" => fake()->name(),
             "localizacion" => fake()->name(),
             "diagnostico" => fake()->name(),
             "observaciones" => fake()->text(),
