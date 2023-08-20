@@ -14,7 +14,7 @@ class Muestra extends Model
 
     public function paciente()
     {
-        return $this->hasOne(Paciente::class);
+        return $this->belongsTo(Paciente::class, 'paciente_id');
     }
 
     public function tipoMuestra()

@@ -18,7 +18,7 @@ class MuestraController extends Controller
      */ 
     public function index()
     {
-        $muestras = Muestra::get();
+        $muestras = Muestra::with('paciente')->get();
         return $muestras;
         // return view("muestras.index", compact("muestras"));
     }

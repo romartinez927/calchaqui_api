@@ -10,8 +10,8 @@ class Paciente extends Model
     use HasFactory;
     protected $fillable = ["nombre", "apellido", "dni", "obra_social"];
 
-    public function muestras()
+    public function muestra()
     {
-        return $this->hasMany(Muestra::class);
+        return $this->belongsTo(Muestra::class, 'muestra_id');
     }
 }
