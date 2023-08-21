@@ -21,7 +21,6 @@ class MuestraFactory extends Factory
         $paciente = Paciente::all()->random();
         $tipo_muestra = TipoMuestra::all()->random();
         // $subtipo_muestra_id = SubtipoMuestra::where("tipo_muestra_id", $tipo_muestra->id)->value('id');
-       
         return [
             "paciente_id" => $paciente->id,
             "tipo_muestra_id" => $tipo_muestra->id,
@@ -30,6 +29,7 @@ class MuestraFactory extends Factory
             "material" => fake()->name(),
             "medico" => fake()->name(),
             "preparador" => fake()->name(),
+            "atb" => fake()->lastName(),
             "localizacion" => fake()->name(),
             "diagnostico" => fake()->name(),
             "observaciones" => fake()->text(),

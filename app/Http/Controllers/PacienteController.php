@@ -27,6 +27,14 @@ class PacienteController extends Controller
         return $pacientes;
     }
 
+    public function buscarPorDni(Request $request)
+    {
+        $dni = $request;
+        $paciente = Paciente::where('dni', $dni)->first();
+
+        return response()->json(['paciente' => $paciente]);
+    }
+
     /**
      * Show the form for creating a new resource.
      * @param  \App\Http\Requests\StorePacienteRequest  $request

@@ -40,6 +40,7 @@ Route::get("/pacientes/{id}", [PacienteController::class, "show"]);
 Route::post('/pacientes', [PacienteController::class, "store"]);
 Route::patch("/pacientes/{paciente}", [PacienteController::class, "update"]);
 Route::delete("/pacientes/{id}", [PacienteController::class, "destroy"]);
+Route::get('/buscar-paciente', [PacienteController::class, "buscarPorDni"]);
 
 Route::get("/muestras", [MuestraController::class, "index"]);
 Route::get("/muestras/{id}", [MuestraController::class, "show"]);

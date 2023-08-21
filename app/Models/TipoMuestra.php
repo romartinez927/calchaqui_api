@@ -11,10 +11,10 @@ class TipoMuestra extends Model
     protected $table = 'tipo_muestras';
     protected $fillable = ["nombre", "disponible"];
 
-    public function muestras()
+    public function muestra()
     {
-        return $this->hasMany(Muestra::class, 'tipo_muestra_id');
-    } 
+        return $this->belongsTo(Muestra::class, 'muestra_id');
+    }
     
     public function subtipoMuestras()
     {

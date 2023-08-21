@@ -40,6 +40,7 @@ return new class extends Migration
             $table->string('material');
             $table->string('localizacion');
             $table->string('diagnostico');
+            $table->string('atb')->nullable();
             $table->string('observaciones');
             $table->string('medico');
             $table->string('preparador');

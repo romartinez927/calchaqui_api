@@ -17,14 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\Paciente::factory(15)->create();
         \App\Models\Clinica::factory(15)->create();
-        // \App\Models\SubtipoMuestra::factory(10)->create();
-
-        // $subtipo_muestra = SubtipoMuestra::all()->random();
-        // \App\Models\TipoMuestra::factory()->create([
-        //     'nombre' => 'Anatomía Patológica',
-        //     "subtipo_muestra_id" => $subtipo_muestra->id,
-        //     'disponible' => 1,
-        // ]);
         $this->call(TipoMuestraSeeder::class);
         $this->call(SubtipoMuestraSeeder::class);
 

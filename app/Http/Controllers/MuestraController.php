@@ -18,7 +18,7 @@ class MuestraController extends Controller
      */ 
     public function index()
     {
-        $muestras = Muestra::with('paciente')->get();
+        $muestras = Muestra::with('paciente', 'tipoMuestra', 'subtipoMuestra')->get();
         return $muestras;
         // return view("muestras.index", compact("muestras"));
     }
@@ -41,54 +41,50 @@ class MuestraController extends Controller
      */
     public function store(Request $request)
     {
-     // Validar los datos del paciente
-     $validacion = $request->validate([
-        "nombre" => "required",
-        "apellido" => "required",
-        "dni" => "required|numeric",
-        "obra_social" => "required",
-        "subtipo_muestra_id" => "required",
-        "punto_generacion" => "required",
-        "material" => "required",
-        "localizacion" => "required",
-        "diagnostico" => "required",
-        "medico" => "required",
-        "preparador" => "required",
-        "observaciones" => "required",
-        "frascos" => "required|numeric",
-        "tipo_muestra_id" => "required|numeric",
-    ], [
-        "required" => "Este campo es requerido", 
-        "numeric" => "Este campo requiere números"
-    ]);
+        try {
+             // Validar los datos del paciente
+            $validacion = $request->validate([
+                "nombre" => "required",
+                "apellido" => "required",
+                "dni" => "required|numeric",
+                "obra_social" => "required",
+                "subtipo_muestra_id" => "required",
+                "punto_generacion" => "required",
+                "material" => "required",
+                "localizacion" => "required",
+                "diagnostico" => "required",
+                "medico" => "required",
+                "preparador" => "required",
+                "observaciones" => "required",
+                "frascos" => "required|numeric",
+                "tipo_muestra_id" => "required|numeric",
+            ], [
+                "required" => "Este campo es requerido", 
+                "numeric" => "Este campo requiere números"
+            ]);
 
-    // Crear el paciente
-    $paciente = new Paciente();
-    $paciente->nombre = $validacion["nombre"];
-    $paciente->apellido = $validacion["apellido"];
-    $paciente->dni = $validacion["dni"];
-    $paciente->obra_social = $validacion["obra_social"];
-    $paciente->save();
+            // Buscar si ya existe un paciente con el mismo DNI
+            $pacienteExistente = Paciente::where('dni', $validacion['dni'])->first();
 
-    // // Validar los datos de la muestra
-    // $muestraValidada = $request->validate([
-    //     "subtipo_muestra_id" => "required",
-    //     "punto_generacion" => "required",
-    //     "material" => "required",
-    //     "localizacion" => "required",
-    //     "diagnostico" => "required",
-    //     "observaciones" => "required",
-    //     "frascos" => "required|numeric",
-    //     "tipo_muestra_id" => "required|numeric",
-    // ], [
-    //     "required" => "Este campo es requerido", 
-    //     "numeric" => "Este campo requiere números"
-    // ]);
+            // Si el paciente ya existe, utiliza ese paciente
+            if ($pacienteExistente) {
+                $paciente = $pacienteExistente;
+            } else {
+                // Si no existe, crea un nuevo paciente
+                $paciente = new Paciente();
+                $paciente->nombre = $validacion["nombre"];
+                $paciente->apellido = $validacion["apellido"];
+                $paciente->dni = $validacion["dni"];
+                $paciente->obra_social = $validacion["obra_social"];
+                $paciente->save();
+            }
+            // Crear la muestra asociada al paciente
+            $validacion['paciente_id'] = $paciente->id;
+            Muestra::create($validacion);
 
-    // Crear la muestra asociada al paciente
-    $validacion['paciente_id'] = $paciente->id;
-    Muestra::create($validacion);
-
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
     }
 
     /**
@@ -101,10 +97,14 @@ class MuestraController extends Controller
     {
         $muestra = Muestra::find($id);
         $paciente = $muestra->paciente; // Suponiendo que tienes una relación definida en el modelo
+        $tipoMuestra = $muestra->tipoMuestra;
+        $subtipoMuestra = $muestra->subtipoMuestra;
 
         return response()->json([
             'muestra' => $muestra,
             'paciente' => $paciente,
+            'tipo_muestra' => $tipoMuestra,
+            'subtipo_muestra' => $subtipoMuestra,
         ]);
     }
 
