@@ -10,8 +10,11 @@ class Paciente extends Model
     use HasFactory;
     protected $fillable = ["nombre", "apellido", "dni", "obra_social"];
 
-    public function muestra()
-    {
+    public function muestra() {
         return $this->belongsTo(Muestra::class, 'muestra_id');
+    }
+
+    public function trazabilidades() {
+        return $this->morphMany("App\Models\Trazabilidad", 'model');
     }
 }

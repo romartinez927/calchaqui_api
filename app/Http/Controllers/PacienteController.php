@@ -29,8 +29,7 @@ class PacienteController extends Controller
 
     public function buscarPorDni(Request $request)
     {
-        $dni = $request;
-        $paciente = Paciente::where('dni', $dni)->first();
+        $paciente = Paciente::where('dni', $request->dni)->get();
 
         return response()->json(['paciente' => $paciente]);
     }

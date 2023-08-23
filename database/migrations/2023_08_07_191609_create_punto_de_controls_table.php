@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("nombre");
             $table->boolean("disponible");
+            $table->integer("orden");
             $table->timestamps();
         });
     }

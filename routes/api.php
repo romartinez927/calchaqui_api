@@ -10,6 +10,7 @@ use App\Http\Controllers\PuntoDeControlController;
 use App\Http\Controllers\TipoMuestraController;
 use App\Http\Controllers\SubtipoMuestraController;
 use App\Http\Controllers\ObraSocialController;
+use App\Http\Controllers\TrazabilidadController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -80,3 +81,9 @@ Route::delete("/subtipo-muestras/{subtipo}", [SubtipoMuestraController::class, "
 
 Route::get("/obra-social", [ObraSocialController::class, "index"]);
 Route::get("/obra-social/{obraSocial}", [ObraSocialController::class, "show"]);
+
+
+Route::get("/trazabilidad", [TrazabilidadController::class, "index"]);
+Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
+Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
+Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);

@@ -17,13 +17,15 @@ class Muestra extends Model
         return $this->belongsTo(Paciente::class, 'paciente_id');
     }
 
-    public function tipoMuestra()
-    {
+    public function tipoMuestra() {
         return $this->belongsTo(TipoMuestra::class, 'tipo_muestra_id');
     }
 
-    public function subtipoMuestra()
-    {
+    public function subtipoMuestra() {
         return $this->belongsTo(SubtipoMuestra::class, 'subtipo_muestra_id');
+    }
+
+    public function trazabilidades() {
+        return $this->morphMany("App\Models\Trazabilidad", 'model');
     }
 }

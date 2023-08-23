@@ -22,10 +22,6 @@ return new class extends Migration
             $table->integer("dni");
             $table->string("obra_social");
             $table->unsignedBigInteger('muestra_id')->nullable();
-            $table->foreign('muestra_id')
-            ->references('id')
-            ->on('muestras')
-            ->onDelete('set null'); 
             $table->timestamps();
         });
 

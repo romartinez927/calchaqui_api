@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Muestra::factory(15)->create();
         $this->call(ServicioSeeder::class);
+        $this->call(PuntoDeControlSeeder::class);
+        \App\Models\Trazabilidad::factory(6)->create();
         // \App\Models\PuntoDeControl::factory(100)->create();
 
         $this->call(ObraSocialSeeder::class);

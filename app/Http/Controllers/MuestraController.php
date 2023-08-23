@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Muestra;
 use App\Models\Paciente;
+use App\Models\Trazabilidad;
 use App\Http\Requests\StoreMuestraRequest;
 use App\Http\Requests\UpdateMuestraRequest;
 
@@ -80,7 +81,16 @@ class MuestraController extends Controller
             }
             // Crear la muestra asociada al paciente
             $validacion['paciente_id'] = $paciente->id;
-            Muestra::create($validacion);
+            $muestra = Muestra::create($validacion);
+
+            $trazabilidad = new Trazabilidad();
+            $trazabilidad->model_type = Muestra::class; // Nombre de la clase del modelo Muestra
+            $trazabilidad->model_id = $muestra->id;
+            $trazabilidad->punto_de_control_id = 1;
+            $trazabilidad->recibido_por = $validacion['preparador'];
+            $trazabilidad->entregado_por = $validacion['medico'];
+            // ... (otros valores de trazabilidad aquí)
+            $trazabilidad->save();
 
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
