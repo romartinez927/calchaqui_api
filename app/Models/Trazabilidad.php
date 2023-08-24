@@ -11,6 +11,11 @@ class Trazabilidad extends Model
     protected $fillable = ["model_id","model_type", "recibido_por", "entregado_por", "url_informe"];
     use HasFactory;
 
+    protected $hidden = [
+        'model_type',
+        'model_id',
+    ];
+
     public function model()
     {
         return $this->morphTo();

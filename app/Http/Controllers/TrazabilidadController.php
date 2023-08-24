@@ -6,7 +6,7 @@ use App\Models\Trazabilidad;
 use App\Models\PuntoDeControl;
 use App\Http\Requests\StoreTrazabilidadRequest;
 use App\Http\Requests\UpdateTrazabilidadRequest;
-
+use App\Models\Muestra;
 use Illuminate\Http\Request;
 
 class TrazabilidadController extends Controller
@@ -18,8 +18,15 @@ class TrazabilidadController extends Controller
      */
     public function index()
     {
-        $trazabilidad = Trazabilidad::with("model", "puntoDeControl")->get();
+        $trazabilidad = Trazabilidad::all();
         return $trazabilidad;
+    }
+
+    public function indexMuestra($id)
+    {
+        $trazabilidad = Muestra::find($id)->trazabilidades;
+        return $trazabilidad;
+
     }
 
     /**

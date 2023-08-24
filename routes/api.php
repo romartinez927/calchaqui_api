@@ -84,6 +84,7 @@ Route::get("/obra-social/{obraSocial}", [ObraSocialController::class, "show"]);
 
 
 Route::get("/trazabilidad", [TrazabilidadController::class, "index"]);
+Route::get("/trazabilidad/muestra/{id}", [TrazabilidadController::class, "indexMuestra"]);
 Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
 Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
 Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);
