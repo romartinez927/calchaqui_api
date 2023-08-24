@@ -18,7 +18,7 @@ class TrazabilidadController extends Controller
      */
     public function index()
     {
-        $trazabilidad = Trazabilidad::with("model")->get();
+        $trazabilidad = Trazabilidad::with("model", "puntoDeControl")->get();
         return $trazabilidad;
     }
 
@@ -93,7 +93,9 @@ class TrazabilidadController extends Controller
      */
     public function show($id)
     {
-        $trazabilidad = Trazabilidad::where('model_id', $id)->first();
+        $trazabilidad = Trazabilidad::where('model_id', $id)
+        ->orderBy('created_at', 'desc') // Ordena por fecha de creación en orden descendente
+        ->first();
 
         if ($trazabilidad) {
             return $trazabilidad;
