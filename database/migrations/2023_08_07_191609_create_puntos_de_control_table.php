@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('punto_de_controls', function (Blueprint $table) {
+        Schema::create('puntos_de_control', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
             $table->boolean("disponible");
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('punto_de_controls');
+        Schema::dropIfExists('puntos_de_control');
     }
 };

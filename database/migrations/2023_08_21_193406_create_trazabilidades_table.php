@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string("model_type");
             $table->unsignedBigInteger("model_id");
-            $table->foreignId("punto_de_control_id")->constrained('punto_de_controls'); // Ajusta el nombre de la tabla si es diferente
+            $table->foreignId("punto_de_control_id")->constrained('puntos_de_control'); // Ajusta el nombre de la tabla si es diferente
             $table->string("recibido_por");
             $table->string("entregado_por");
             $table->string("url_informe")->nullable();

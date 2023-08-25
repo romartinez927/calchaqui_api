@@ -9,6 +9,7 @@ class PuntoDeControl extends Model
 {
     use HasFactory;
     protected $fillable = ["nombre", "disponible", "orden"];
+    protected $table = "puntos_de_control";
 
     public function trazabilidades() {
         return $this->hasMany(Trazabilidad::class);
