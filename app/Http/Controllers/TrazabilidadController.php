@@ -47,26 +47,7 @@ class TrazabilidadController extends Controller
      */
     public function store(Request $request)
     {
-        // $data = $request->validate([
-        //     'model_type' => 'required|string',
-        //     'model_id' => 'required|integer',
-        //     'recibido_por' => 'required|string',
-        //     'entregado_por' => 'required|string',
-        //     'url_informe' => 'nullable|string',
-        // ]);
-
-        // // Crea una nueva instancia de Trazabilidad con los datos validados
-        // $puntoDeControl = PuntoDeControl::first(); // Por ejemplo, obtén el primer punto de control
-
-        // // Crea una nueva instancia de Trazabilidad con los datos validados
-        // $trazabilidad = new Trazabilidad($data);
-        // $trazabilidad->punto_de_control_id = $puntoDeControl->id;
-        // $trazabilidad->save();
-
-        // return $trazabilidad;
-
         try {
-            // ... (otras validaciones si es necesario)
     
             // Obtener el último punto_de_control_id
             $lastPuntoDeControlId = Trazabilidad::where('model_id', $request->input('model_id'))
@@ -83,7 +64,6 @@ class TrazabilidadController extends Controller
             // ... (otros valores de trazabilidad aquí)
             $nuevaTrazabilidad->save();
     
-            // ... (más lógica si es necesario)
             return $nuevaTrazabilidad;
     
         } catch (ValidationException $e) {

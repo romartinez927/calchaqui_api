@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('trazabilidades', function (Blueprint $table) {
             $table->id();
             $table->string("model_type");
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string("url_informe")->nullable();
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

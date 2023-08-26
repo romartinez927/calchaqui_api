@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('puntos_de_control', function (Blueprint $table) {
             $table->id();
             $table->string("nombre");
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->integer("orden");
             $table->timestamps();
         });
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

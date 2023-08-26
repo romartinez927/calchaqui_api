@@ -36,15 +36,15 @@ return new class extends Migration
             ->on('subtipo_muestras')
             ->onDelete('set null'); 
 
-            $table->string('punto_generacion');
-            $table->string('material');
-            $table->string('localizacion');
-            $table->string('diagnostico');
+            $table->string('punto_generacion')->default('');
+            $table->string('material')->default('');
+            $table->string('localizacion')->default('');
+            $table->string('diagnostico')->default('');
             $table->string('atb')->nullable();
-            $table->string('observaciones');
-            $table->string('medico');
-            $table->string('preparador');
-            $table->integer('frascos');
+            $table->string('observaciones')->default('');
+            $table->string('medico')->default('');
+            $table->string('preparador')->default('');
+            $table->integer('frascos')->default(0);
             
             $table->timestamps();
         });

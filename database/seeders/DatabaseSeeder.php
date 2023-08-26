@@ -15,16 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Paciente::factory(2)->create();
+        \App\Models\Paciente::factory(10)->create();
         \App\Models\Clinica::factory(2)->create();
+        $this->call(PuntoDeControlSeeder::class);
         $this->call(TipoMuestraSeeder::class);
         $this->call(SubtipoMuestraSeeder::class);
 
-        \App\Models\Muestra::factory(2)->create();
+        \App\Models\Muestra::factory(5)->create();
         $this->call(ServicioSeeder::class);
-        $this->call(PuntoDeControlSeeder::class);
-        \App\Models\Trazabilidad::factory(1)->create();
-        // \App\Models\PuntoDeControl::factory(100)->create();
+
+        // \App\Models\Trazabilidad::factory(1)->create();
 
         $this->call(ObraSocialSeeder::class);
        

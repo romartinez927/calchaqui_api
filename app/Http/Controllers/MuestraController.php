@@ -24,6 +24,17 @@ class MuestraController extends Controller
         // return view("muestras.index", compact("muestras"));
     }
 
+    public function buscarPorDNI(Request $request)
+    {
+        $pacienteEncontrado = Paciente::where('dni', $request->input('dni'))->first();
+
+        if ($pacienteEncontrado) {
+            return response()->json($pacienteEncontrado);
+        } else {
+            return response()->json(['message' => 'Paciente no encontrado'], 404);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

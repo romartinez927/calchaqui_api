@@ -19,26 +19,7 @@ class MuestraFactory extends Factory
      */
     public function definition()
     {
-        // $paciente = Paciente::all()->random();
-        // $tipo_muestra = TipoMuestra::all()->random();
-        // // $subtipo_muestra_id = SubtipoMuestra::where("tipo_muestra_id", $tipo_muestra->id)->value('id');
-        
-        // return [
-        //     "paciente_id" => $paciente->id,
-        //     "tipo_muestra_id" => $tipo_muestra->id,
-        //     "subtipo_muestra_id" => $tipo_muestra->subtipoMuestras->first()->id,
-        //     "punto_generacion" => fake()->name(),
-        //     "material" => fake()->name(),
-        //     "medico" => fake()->name(),
-        //     "preparador" => fake()->name(),
-        //     "atb" => fake()->lastName(),
-        //     "localizacion" => fake()->name(),
-        //     "diagnostico" => fake()->name(),
-        //     "observaciones" => fake()->text(),
-        //     "frascos" => fake()->numberBetween(1, 30)
-        // ];
-
-
+     
         $paciente = Paciente::all()->random();
         $tipo_muestra = TipoMuestra::all()->random();
 
@@ -62,6 +43,8 @@ class MuestraFactory extends Factory
             'model_type' => 'App\Models\Muestra',
             'model_id' => $muestra->id,
             'punto_de_control_id' => 1, // Punto de control deseado
+            "entregado_por" => $muestra->preparador,
+            "recibido_por" => $muestra->medico
         ]);
 
         return [

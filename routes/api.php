@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\MuestraController;
 use App\Http\Controllers\ClinicaController;
@@ -11,6 +12,9 @@ use App\Http\Controllers\TipoMuestraController;
 use App\Http\Controllers\SubtipoMuestraController;
 use App\Http\Controllers\ObraSocialController;
 use App\Http\Controllers\TrazabilidadController;
+
+use App\Http\Controllers\Api\AuthApiController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,6 +30,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Ruta para el login de API
+Route::post('/login', [AuthApiController::class, 'login']);
+
+// ... Otras rutas API ...
+
+// Middleware CORS para aceptar solicitudes desde el cliente
+Route::middleware('cors')->group(function () {
+    // Rutas API aquí
+});
+
+
 Route::resources([
     "muestra" => MuestraController::class,
     "paciente" => PacienteController::class,
@@ -38,6 +53,7 @@ Route::get("/test-relaciones", function() {
 
 Route::get("/pacientes", [PacienteController::class, "index"]);
 Route::get("/pacientes/{id}", [PacienteController::class, "show"]);
+Route::get("/pacientes/buscar-por-dni", [PacienteController::class, "buscarPorDni"]);
 Route::post('/pacientes', [PacienteController::class, "store"]);
 Route::patch("/pacientes/{paciente}", [PacienteController::class, "update"]);
 Route::delete("/pacientes/{id}", [PacienteController::class, "destroy"]);
