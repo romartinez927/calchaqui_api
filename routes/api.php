@@ -12,8 +12,8 @@ use App\Http\Controllers\TipoMuestraController;
 use App\Http\Controllers\SubtipoMuestraController;
 use App\Http\Controllers\ObraSocialController;
 use App\Http\Controllers\TrazabilidadController;
+use App\Http\Controllers\AuthController;
 
-use App\Http\Controllers\Api\AuthApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,26 +30,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Ruta para el login de API
-Route::post('/login', [AuthApiController::class, 'login']);
-
-// ... Otras rutas API ...
-
-// Middleware CORS para aceptar solicitudes desde el cliente
-Route::middleware('cors')->group(function () {
-    // Rutas API aquí
-});
-
+Route::post("/login", [AuthController::class, "login"]);
 
 Route::resources([
     "muestra" => MuestraController::class,
     "paciente" => PacienteController::class,
     "tipo_muestra" => TipoMuestraController::class
 ]);
-
-Route::get("/test-relaciones", function() {
-    return "hola";
-});
 
 Route::get("/pacientes", [PacienteController::class, "index"]);
 Route::get("/pacientes/{id}", [PacienteController::class, "show"]);

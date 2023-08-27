@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 /*
@@ -19,8 +19,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
 
 // Ruta de registro
 Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');

@@ -3,20 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    use TwoFactorVerificationController;
-
-    // Métodos para mostrar vistas de autenticación, como Login, Register, etc.
-
-    public function logout(Request $request)
+    public function login(Request $request)
     {
-        // Lógica de logout usando Fortify
-    }
+        $validatedData = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        if (!Auth::attempt($validatedData)) {
+            return response()->json(["message" => "Unauthorized"], 401);
+        }
 
-    public function __construct()
-    {
-        $this->middleware(['auth', 'verified']);
+        $user = User::where("email", $request->input("email"))->firstOrFail(); // Use input() method
+        $token = $user->createToken("auth_token")->plainTextToken; // Use $user instead of User
+
+        return response()
+            ->son([
+                "accessToken" => $token,
+                "token_type" => "Bearer", 
+                "user" => $user
+            ]);
     }
 }

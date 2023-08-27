@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \App\Models\Paciente::factory(10)->create();
+        \App\Models\User::factory(3)->create();
         \App\Models\Clinica::factory(2)->create();
         $this->call(PuntoDeControlSeeder::class);
         $this->call(TipoMuestraSeeder::class);
