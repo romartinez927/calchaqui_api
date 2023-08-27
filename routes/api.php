@@ -13,6 +13,8 @@ use App\Http\Controllers\SubtipoMuestraController;
 use App\Http\Controllers\ObraSocialController;
 use App\Http\Controllers\TrazabilidadController;
 use App\Http\Controllers\AuthController;
+use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 
 /*
@@ -30,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post("/login", [AuthController::class, "login"]);
+
 
 Route::resources([
     "muestra" => MuestraController::class,
@@ -38,7 +40,7 @@ Route::resources([
     "tipo_muestra" => TipoMuestraController::class
 ]);
 
-Route::get("/pacientes", [PacienteController::class, "index"]);
+Route::get("/pacientes", [PacienteController::class, "index"])->middleware('auth:sanctum');
 Route::get("/pacientes/{id}", [PacienteController::class, "show"]);
 Route::get("/pacientes/buscar-por-dni", [PacienteController::class, "buscarPorDni"]);
 Route::post('/pacientes', [PacienteController::class, "store"]);
@@ -91,3 +93,34 @@ Route::get("/trazabilidad/muestra/{id}", [TrazabilidadController::class, "indexM
 Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
 Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
 Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);
+
+
+
+
+
+
+
+Route::post('/login', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'device_name' => 'required',
+    ]);
+ 
+    $user = User::where('email', $request->email)->first();
+    
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    $token = $user->createToken($request->device_name)->plainTextToken;
+
+    $response = [
+        'token' => $token,
+        'user' => $user,
+    ];
+ 
+    return $response;
+});
