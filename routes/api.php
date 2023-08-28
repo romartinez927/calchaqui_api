@@ -32,21 +32,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
 Route::resources([
     "muestra" => MuestraController::class,
     "paciente" => PacienteController::class,
     "tipo_muestra" => TipoMuestraController::class
 ]);
 
-Route::get("/pacientes", [PacienteController::class, "index"])->middleware('auth:sanctum');
-Route::get("/pacientes/{id}", [PacienteController::class, "show"]);
-Route::get("/pacientes/buscar-por-dni", [PacienteController::class, "buscarPorDni"]);
-Route::post('/pacientes', [PacienteController::class, "store"]);
-Route::patch("/pacientes/{paciente}", [PacienteController::class, "update"]);
-Route::delete("/pacientes/{id}", [PacienteController::class, "destroy"]);
-Route::get('/buscar-paciente', [PacienteController::class, "buscarPorDni"]);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get("/pacientes", [PacienteController::class, "index"]);
+    Route::get("/pacientes/{id}", [PacienteController::class, "show"]);
+    Route::get("/pacientes/buscar-por-dni", [PacienteController::class, "buscarPorDni"]);
+    Route::post('/pacientes', [PacienteController::class, "store"]);
+    Route::patch("/pacientes/{paciente}", [PacienteController::class, "update"]);
+    Route::delete("/pacientes/{id}", [PacienteController::class, "destroy"]);
+    Route::get('/buscar-paciente', [PacienteController::class, "buscarPorDni"]);
+});
 
 Route::get("/muestras", [MuestraController::class, "index"]);
 Route::get("/muestras/{id}", [MuestraController::class, "show"]);
@@ -93,11 +93,6 @@ Route::get("/trazabilidad/muestra/{id}", [TrazabilidadController::class, "indexM
 Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
 Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
 Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);
-
-
-
-
-
 
 
 Route::post('/login', function (Request $request) {
