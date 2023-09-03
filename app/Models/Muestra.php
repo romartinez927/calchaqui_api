@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Paciente;
 use App\Models\TipoMuestra;
-
+use App\Models\Servicio;
 class Muestra extends Model
 {
     use HasFactory;
-    protected $fillable = ["paciente_id", "tipo_muestra_id", "subtipo_muestra_id", "punto_generacion", "material", "localizacion", "diagnostico", "observaciones", "frascos", "medico", "preparador", "atb"];
+    protected $fillable = ["paciente_id", "tipo_muestra_id", "subtipo_muestra_id", "punto_generacion_id", "material", "localizacion", "diagnostico", "observaciones", "frascos", "medico", "preparador", "atb"];
 
     public function paciente()
     {
@@ -23,6 +23,10 @@ class Muestra extends Model
 
     public function subtipoMuestra() {
         return $this->belongsTo(SubtipoMuestra::class, 'subtipo_muestra_id');
+    }
+
+    public function servicio() {
+        return $this->belongsTo(Servicio::class, "punto_generacion_id");
     }
 
     public function trazabilidades() {

@@ -19,9 +19,8 @@ class MuestraController extends Controller
      */ 
     public function index()
     {
-        $muestras = Muestra::with('paciente', 'tipoMuestra', 'subtipoMuestra')->get();
+        $muestras = Muestra::with('paciente', 'tipoMuestra', 'subtipoMuestra', 'servicio', "trazabilidades.puntoDeControl")->get();
         return $muestras;
-        // return view("muestras.index", compact("muestras"));
     }
 
     public function buscarPorDNI(Request $request)
@@ -61,7 +60,7 @@ class MuestraController extends Controller
                 "dni" => "required|numeric",
                 "obra_social" => "required",
                 "subtipo_muestra_id" => "required",
-                "punto_generacion" => "required",
+                "punto_generacion_id" => "required",
                 "material" => "required",
                 "localizacion" => "required",
                 "diagnostico" => "required",
@@ -120,12 +119,14 @@ class MuestraController extends Controller
         $paciente = $muestra->paciente; // Suponiendo que tienes una relación definida en el modelo
         $tipoMuestra = $muestra->tipoMuestra;
         $subtipoMuestra = $muestra->subtipoMuestra;
+        $servicio = $muestra->servicio;
 
         return response()->json([
             'muestra' => $muestra,
             'paciente' => $paciente,
             'tipo_muestra' => $tipoMuestra,
             'subtipo_muestra' => $subtipoMuestra,
+            'punto_generacion' => $servicio,
         ]);
     }
 

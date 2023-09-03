@@ -18,7 +18,7 @@ class TrazabilidadFactory extends Factory
     {
         return [
             "model_type" => fake()->randomElement($array = array ("App\Models\Muestra","App\Models\Paciente")),
-            "model_id" => fake()->numberBetween(1, 30),
+            "model_id" => fake()->numberBetween(1, 10),
             "punto_de_control_id" => fake()->numberBetween(1, 6),
             "recibido_por" => fake()->name(),
             "entregado_por" => fake()->name(),

@@ -7,6 +7,7 @@ use App\Models\Paciente;
 use App\Models\TipoMuestra;
 use App\Models\Muestra;
 use App\Models\Trazabilidad;
+use App\Models\Servicio;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Muestra>
  */
@@ -22,12 +23,13 @@ class MuestraFactory extends Factory
      
         $paciente = Paciente::all()->random();
         $tipo_muestra = TipoMuestra::all()->random();
+        $punto_generacion = Servicio::all()->random();
 
         $muestra = Muestra::create([
             "paciente_id" => $paciente->id,
             "tipo_muestra_id" => $tipo_muestra->id,
             "subtipo_muestra_id" => $tipo_muestra->subtipoMuestras->first()->id,
-            "punto_generacion" => $this->faker->name(),
+            "punto_generacion_id" => $punto_generacion->id,
             "material" => $this->faker->name(),
             "medico" => $this->faker->name(),
             "preparador" => $this->faker->name(),
@@ -35,7 +37,7 @@ class MuestraFactory extends Factory
             "localizacion" => $this->faker->name(),
             "diagnostico" => $this->faker->name(),
             "observaciones" => $this->faker->text(),
-            "frascos" => $this->faker->numberBetween(1, 30)
+            "frascos" => $this->faker->numberBetween(1, 10)
         ]);
 
         // Crear una trazabilidad asociada a la muestra recién creada

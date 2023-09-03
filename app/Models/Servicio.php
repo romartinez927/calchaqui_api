@@ -9,4 +9,9 @@ class Servicio extends Model
 {
     use HasFactory;
     protected $fillable = ["nombre", "disponible"];
+
+    public function muestra()
+    {
+        return $this->hasOne(Muestra::class, 'muestra_id');
+    }
 }

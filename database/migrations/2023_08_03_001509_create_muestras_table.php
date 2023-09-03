@@ -36,7 +36,12 @@ return new class extends Migration
             ->on('subtipo_muestras')
             ->onDelete('set null'); 
 
-            $table->string('punto_generacion')->default('');
+            $table->unsignedBigInteger('punto_generacion_id')->nullable();
+            $table->foreign('punto_generacion_id')
+            ->references('id')
+            ->on('servicios')
+            ->onDelete('set null'); 
+
             $table->string('material')->default('');
             $table->string('localizacion')->default('');
             $table->string('diagnostico')->default('');

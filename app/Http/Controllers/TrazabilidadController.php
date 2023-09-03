@@ -18,7 +18,7 @@ class TrazabilidadController extends Controller
      */
     public function index()
     {
-        $trazabilidad = Trazabilidad::all();
+        $trazabilidad = Trazabilidad::with('puntoDeControl')->get();
         return $trazabilidad;
     }
 

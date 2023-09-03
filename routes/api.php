@@ -48,11 +48,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/buscar-paciente', [PacienteController::class, "buscarPorDni"]);
 });
 
-Route::get("/muestras", [MuestraController::class, "index"]);
-Route::get("/muestras/{id}", [MuestraController::class, "show"]);
-Route::post('/muestras', [MuestraController::class, "store"]);
-Route::patch("/muestras/{muestra}", [MuestraController::class, "update"]);
-Route::delete("/muestras/{muestra}", [MuestraController::class, "destroy"]);
+// Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get("/muestras", [MuestraController::class, "index"]);
+    Route::get("/muestras/{id}", [MuestraController::class, "show"]);
+    Route::post('/muestras', [MuestraController::class, "store"]);
+    Route::patch("/muestras/{muestra}", [MuestraController::class, "update"]);
+    Route::delete("/muestras/{muestra}", [MuestraController::class, "destroy"]);
+// });
 
 Route::get("/clinicas", [ClinicaController::class, "index"]);
 Route::get("/clinicas/{clinica}", [ClinicaController::class, "show"]);
@@ -106,7 +108,7 @@ Route::post('/login', function (Request $request) {
     
     if (! $user || ! Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
+            'credenciales' => ['Las credenciales proporcionadas son incorrectas.'],
         ]);
     }
 

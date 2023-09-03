@@ -26,7 +26,7 @@ class UpdateMuestraRequest extends FormRequest
         return [
             "paciente_id" => ["integer","numeric","required"],
             "subtipo_muestra_id" => ["string","required"],
-            "punto_generacion" => ["string","required"],
+            "punto_generacion_id" => ["string","required"],
             "material" => ["string","required"],
             "localizacion" => ["string","required"],
             "diagnostico" => ["string","required"],
