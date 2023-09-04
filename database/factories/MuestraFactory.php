@@ -20,12 +20,11 @@ class MuestraFactory extends Factory
      */
     public function definition()
     {
-     
         $paciente = Paciente::all()->random();
         $tipo_muestra = TipoMuestra::all()->random();
         $punto_generacion = Servicio::all()->random();
 
-        $muestra = Muestra::create([
+        return [
             "paciente_id" => $paciente->id,
             "tipo_muestra_id" => $tipo_muestra->id,
             "subtipo_muestra_id" => $tipo_muestra->subtipoMuestras->first()->id,
@@ -38,19 +37,20 @@ class MuestraFactory extends Factory
             "diagnostico" => $this->faker->name(),
             "observaciones" => $this->faker->text(),
             "frascos" => $this->faker->numberBetween(1, 10)
-        ]);
-
-        // Crear una trazabilidad asociada a la muestra recién creada
-        $trazabilidad = Trazabilidad::factory()->create([
-            'model_type' => 'App\Models\Muestra',
-            'model_id' => $muestra->id,
-            'punto_de_control_id' => 1, // Punto de control deseado
-            "entregado_por" => $muestra->preparador,
-            "recibido_por" => $muestra->medico
-        ]);
-
-        return [
-            // Atributos adicionales de la muestra, si los hay
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Muestra $muestra) {
+            // Crear una trazabilidad asociada a la muestra recién creada
+            Trazabilidad::factory()->create([
+                'model_type' => 'App\Models\Muestra',
+                'model_id' => $muestra->id,
+                'punto_de_control_id' => 1, // Punto de control deseado
+                "entregado_por" => $muestra->preparador,
+                "recibido_por" => $muestra->medico
+            ]);
+        });
     }
 }

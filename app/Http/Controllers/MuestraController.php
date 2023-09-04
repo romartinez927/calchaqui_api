@@ -62,11 +62,8 @@ class MuestraController extends Controller
                 "subtipo_muestra_id" => "required",
                 "punto_generacion_id" => "required",
                 "material" => "required",
-                "localizacion" => "required",
-                "diagnostico" => "required",
-                "medico" => "required",
-                "preparador" => "required",
-                "observaciones" => "required",
+                "medico" => "required|string",
+                "preparador" => "required|string",
                 "frascos" => "required|numeric",
                 "tipo_muestra_id" => "required|numeric",
             ], [

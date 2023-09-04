@@ -48,13 +48,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/buscar-paciente', [PacienteController::class, "buscarPorDni"]);
 });
 
-// Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get("/muestras", [MuestraController::class, "index"]);
     Route::get("/muestras/{id}", [MuestraController::class, "show"]);
     Route::post('/muestras', [MuestraController::class, "store"]);
     Route::patch("/muestras/{muestra}", [MuestraController::class, "update"]);
     Route::delete("/muestras/{muestra}", [MuestraController::class, "destroy"]);
-// });
+});
 
 Route::get("/clinicas", [ClinicaController::class, "index"]);
 Route::get("/clinicas/{clinica}", [ClinicaController::class, "show"]);
@@ -89,13 +89,13 @@ Route::delete("/subtipo-muestras/{subtipo}", [SubtipoMuestraController::class, "
 Route::get("/obra-social", [ObraSocialController::class, "index"]);
 Route::get("/obra-social/{obraSocial}", [ObraSocialController::class, "show"]);
 
-
-Route::get("/trazabilidad", [TrazabilidadController::class, "index"]);
-Route::get("/trazabilidad/muestra/{id}", [TrazabilidadController::class, "indexMuestra"]);
-Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
-Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
-Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);
-
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get("/trazabilidad", [TrazabilidadController::class, "index"]);
+    Route::get("/trazabilidad/muestra/{id}", [TrazabilidadController::class, "indexMuestra"]);
+    Route::get("/trazabilidad/{id}", [TrazabilidadController::class, "show"]);
+    Route::post('/trazabilidad', [TrazabilidadController::class, 'store']);
+    Route::get('trazabilidad/{modelId}/{puntoDeControlId}', [TrazabilidadController::class, 'showByModelAndPuntoDeControl']);
+});
 
 Route::post('/login', function (Request $request) {
     $request->validate([
